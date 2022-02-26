@@ -13,6 +13,8 @@ public class Player : MonoBehaviour
     [SerializeField, Range(1,180)] private float upperLookLimit = 80.0f;
     [SerializeField, Range(1,180)] private float lowerLookLimit = 80.0f;
 
+    [SerializeField] private float gravity = 30.0f;
+
     //Movement
     private Vector2 currentInput;
     private Vector3 moveDirection;    
@@ -32,6 +34,9 @@ public class Player : MonoBehaviour
     {
         Move();
         MouseLook();
+        
+        
+        
     }
 
     void Awake() {
@@ -41,7 +46,7 @@ public class Player : MonoBehaviour
     public void Move(){
         currentInput = new Vector2(speed * Input.GetAxis("Vertical"),speed * Input.GetAxis("Horizontal"));
         moveDirection = (transform.TransformDirection(Vector3.forward)*currentInput.x)
-         + (transform.TransformDirection(Vector3.right) * currentInput.y);
+         + (transform.TransformDirection(Vector3.right) * currentInput.y);        
 
         characterController.Move(moveDirection * Time.deltaTime);
     }
@@ -52,6 +57,8 @@ public class Player : MonoBehaviour
         playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
         transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeedX, 0);
     }
+
+
 
 
 

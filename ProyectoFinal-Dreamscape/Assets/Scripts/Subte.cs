@@ -45,15 +45,15 @@ public class Subte : MonoBehaviour
             Movement(forwardDir);
                 if(transform.position.z >= 432f){
                     canMove = false;
-                    if(playerHasCrossed == false)
+                    if(playerHasCrossed == true)
                     OpenDoors(LDoors);
             }
         }
 
         if(playerHasCrossed){
-            Player.transform.parent = transform;
+            Player.transform.SetParent(transform);
         } else {
-            Player.transform.parent = null;
+            Player.transform.SetParent(null);
         }
             
 
