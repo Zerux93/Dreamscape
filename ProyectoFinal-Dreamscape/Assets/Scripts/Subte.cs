@@ -10,7 +10,7 @@ public class Subte : MonoBehaviour
     [SerializeField] private Animator[] RDoors;
     [SerializeField] private Animator[] LDoors;  
 
-    public GameObject Player;
+    public Transform Player;
 
     public float timePass = 0;
     public float coolDown = 5f; 

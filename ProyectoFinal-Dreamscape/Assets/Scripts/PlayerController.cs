@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool willSlideOnSlopes = true;
     [SerializeField] private bool canZoom = true;
     //[SerializeField] private bool canInteract = true;
-    [SerializeField] private bool useFootsteps = true;
+    //[SerializeField] private bool useFootsteps = true;
 
 
 
@@ -170,8 +170,8 @@ public class PlayerController : MonoBehaviour
                 HandleInteractionInput();
             }*/
 
-            if(useFootsteps)
-                HandleFootsteps();
+            /*if(useFootsteps)
+                HandleFootsteps();*/
                 
 
             ApplyFinalMovements();
@@ -266,7 +266,7 @@ public class PlayerController : MonoBehaviour
         }
     }*/
 
-    private void HandleFootsteps(){
+    /*private void HandleFootsteps(){
         if(!characterController.isGrounded) return;
         if(currentInput == Vector2.zero) return;
 
@@ -291,7 +291,7 @@ public class PlayerController : MonoBehaviour
             }
             footStepTimer = GetCurrentOffset;
         }
-    }
+    }*/
 
     private void ApplyFinalMovements(){
 
