@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool willSlideOnSlopes = true;
     [SerializeField] private bool canZoom = true;
     //[SerializeField] private bool canInteract = true;
-    //[SerializeField] private bool useFootsteps = true;
+    [SerializeField] private bool useFootsteps = true;
 
 
 
@@ -95,7 +95,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private AudioSource footstepAudioSource = default;
     [SerializeField] private AudioClip[] woodClip = default;
     [SerializeField] private AudioClip[] metalClip = default;
-    [SerializeField] private AudioClip[] grassClip = default;
+    [SerializeField] private AudioClip[] tileClip = default;
     private float footStepTimer = 0;
     private float GetCurrentOffset => isCrouching ? baseStepSpeed * crouchStepMultiplier :
                                       IsSprinting ? baseStepSpeed * sprintStepMultiplier :
@@ -170,8 +170,8 @@ public class PlayerController : MonoBehaviour
                 HandleInteractionInput();
             }*/
 
-            /*if(useFootsteps)
-                HandleFootsteps();*/
+            if(useFootsteps)
+                HandleFootsteps();
                 
 
             ApplyFinalMovements();
@@ -266,7 +266,7 @@ public class PlayerController : MonoBehaviour
         }
     }*/
 
-    /*private void HandleFootsteps(){
+    private void HandleFootsteps(){
         if(!characterController.isGrounded) return;
         if(currentInput == Vector2.zero) return;
 
@@ -281,17 +281,17 @@ public class PlayerController : MonoBehaviour
                     case "Footsteps/METAL":
                         footstepAudioSource.PlayOneShot(metalClip[Random.Range(0, metalClip.Length-1)]);
                         break;
-                    case "Footsteps/GRASS":
-                        footstepAudioSource.PlayOneShot(grassClip[Random.Range(0, grassClip.Length-1)]);
+                    case "Footsteps/TILE":
+                        footstepAudioSource.PlayOneShot(tileClip[Random.Range(0, tileClip.Length-1)]);
                         break;
                     default:
-                        footstepAudioSource.PlayOneShot(grassClip[Random.Range(0, grassClip.Length-1)]);
+                        footstepAudioSource.PlayOneShot(tileClip[Random.Range(0, tileClip.Length-1)]);
                         break;
                 }
             }
             footStepTimer = GetCurrentOffset;
         }
-    }*/
+    }
 
     private void ApplyFinalMovements(){
 

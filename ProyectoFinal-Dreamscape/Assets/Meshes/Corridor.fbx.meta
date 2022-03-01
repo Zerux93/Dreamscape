@@ -8,12 +8,12 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Pared
-    second: {fileID: 2100000, guid: ead3748d676c53142847db3a0f67a8ed, type: 2}
+    second: {fileID: 2100000, guid: 84a4047a2b9ca1742917652fd5dc58d1, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Piso
-    second: {fileID: 2100000, guid: 84a4047a2b9ca1742917652fd5dc58d1, type: 2}
+    second: {fileID: 2100000, guid: ead3748d676c53142847db3a0f67a8ed, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

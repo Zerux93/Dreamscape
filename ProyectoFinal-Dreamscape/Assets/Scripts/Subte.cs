@@ -4,13 +4,22 @@ using UnityEngine;
 
 public class Subte : MonoBehaviour
 {
-    public float speed = 15f;
+    [SerializeField] private float speed = 15f;
     private bool canMove = true;
+
+    [SerializeField] private Transform trainA;
+    [SerializeField] private Transform trainB;
 
     [SerializeField] private Animator[] RDoors;
     [SerializeField] private Animator[] LDoors;  
 
     public Transform Player;
+
+    //bobmovement
+    [SerializeField] private float bobMovementSpeed = 2f; 
+    [SerializeField] private float bobMovementAmount = 0.001f; 
+    //private float TrainAdefaultYPos = 0;
+    //private float TrainBdefaultYPos = 0;
 
     public float timePass = 0;
     public float coolDown = 5f; 
@@ -21,12 +30,15 @@ public class Subte : MonoBehaviour
 
     bool fistStation = false;
     bool secondStation = false;
+    bool isMoving = false;
+
+    float timer;
 
 
 
     void Start()
     {
-        
+
     }
 
 
@@ -55,27 +67,36 @@ public class Subte : MonoBehaviour
         } else {
             Player.transform.SetParent(null);
         }
-            
 
+        if(canMove){
+            BobMovement(trainA);
+        }
+    }
 
+    private void FixedUpdate() {
+        if(canMove){;
+            BobMovement(trainB);
+        }
+    }
 
-
-        /*if(transform.position.z <= 46f){
-            timePass += Time.deltaTime;
-            canMove = false;
-
-            if(playerHasCrossed == false)
-                OpenDoors(LDoors);
-            
-            if(timePass > coolDown){
-                CloseDoors(LDoors);
-                playerHasCrossed = true;
-            }
-        }*/
+    void Awake() {
+        //TrainAdefaultYPos = trainA.transform.localPosition.y;
+        //TrainBdefaultYPos = trainA.transform.localPosition.y;
     }
 
     public void Movement(Vector3 dir){
         transform.Translate(speed * dir * Time.deltaTime);
+    }
+
+
+
+    public void BobMovement(Transform train){
+        timer += Time.deltaTime * bobMovementSpeed;
+        train.transform.localPosition = new Vector3(
+            train.transform.localPosition.x + Mathf.Sin(timer) * bobMovementAmount,
+            train.transform.localPosition.y,
+            train.transform.localPosition.z
+        );
     }
 
     public void OpenDoors(Animator[] doors){
