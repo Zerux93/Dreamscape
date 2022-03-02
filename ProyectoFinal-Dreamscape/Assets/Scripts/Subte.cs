@@ -4,61 +4,81 @@ using UnityEngine;
 
 public class Subte : MonoBehaviour
 {
+    [Header("Movement")]
     [SerializeField] private float speed = 15f;
-    private bool canMove = true;
-
-    [SerializeField] private Transform trainA;
-    [SerializeField] private Transform trainB;
-
-    [SerializeField] private Animator[] RDoors;
-    [SerializeField] private Animator[] LDoors;  
-
-    public Transform Player;
-
     //bobmovement
     [SerializeField] private float bobMovementSpeed = 2f; 
     [SerializeField] private float bobMovementAmount = 0.001f; 
-    //private float TrainAdefaultYPos = 0;
-    //private float TrainBdefaultYPos = 0;
 
-    public float timePass = 0;
-    public float coolDown = 5f; 
+    [Header("Waypoints")]
+    [SerializeField] private Transform waypointA;
+    [SerializeField] private Transform waypointB;
+    [SerializeField] private Transform waypointC;
+    public bool canMove = true;
+
+    [Header("Trains")]
+    [SerializeField] private Transform trainA;
+    [SerializeField] private Transform trainB;
+
+    [Header("Doors")]
+    [SerializeField] private Animator[] RDoors;
+    [SerializeField] private Animator[] LDoors; 
+
+    [Header("Player")]
+    [SerializeField] Transform Player;
     private bool playerHasCrossed = false; 
 
-    Vector3 forwardDir = Vector3.forward;
-    Vector3 backDir = Vector3.back;
+    private float timePass = 0;
+    private float coolDown = 3f;
+    private float coolDown2 = 5f; 
 
-    bool fistStation = false;
-    bool secondStation = false;
-    bool isMoving = false;
+    public bool fistStation = false;
+    public bool secondStation = false;
 
-    float timer;
-
-
-
-    void Start()
-    {
-
-    }
-
+    private float timer;
 
     void Update()
     {
-        if(canMove && fistStation == false){
-            Movement(backDir);
-                if(transform.position.z <= 46f){
+        if(canMove && !fistStation){
+            Movement(waypointA);
+                if(transform.position.z <= waypointA.transform.position.z){
+                    Debug.Log("EstacionA");
                     canMove = false;
-                    if(playerHasCrossed == false)
+                    if(!playerHasCrossed)
                     OpenDoors(LDoors);
             }
         }
 
-        if(canMove && fistStation == true){
-            Movement(forwardDir);
-                if(transform.position.z >= 432f){
-                    canMove = false;
-                    if(playerHasCrossed == true)
-                    OpenDoors(LDoors);
+        if(canMove && fistStation && !secondStation){
+            Movement(waypointB);
+            if(transform.position.z >= waypointB.transform.position.z){  
+                Debug.Log("EstacionB");                  
+                canMove = false;
+                secondStation = true;
+                OpenDoors(LDoors);
+            }
+        }
+
+        if(!playerHasCrossed && secondStation && !canMove){
+            timePass += Time.deltaTime;
+            if(timePass > coolDown){
+                CloseDoors(LDoors);
+            }
+
+            if(timePass > coolDown2){
+                canMove = true;
+                timePass = 0;
+            }
+        }
+
+        if(canMove && secondStation){
+            Debug.Log("Estacion C");
+            Movement(waypointC);
+            coolDown2 = 10f;
+            timePass += Time.deltaTime;
+            if(timePass > coolDown2){
+                canMove = true;
+                Destroy(this.gameObject);
             }
         }
 
@@ -79,16 +99,11 @@ public class Subte : MonoBehaviour
         }
     }
 
-    void Awake() {
-        //TrainAdefaultYPos = trainA.transform.localPosition.y;
-        //TrainBdefaultYPos = trainA.transform.localPosition.y;
+    private void Movement(Transform waypoint){
+        Vector3 deltaVector = new Vector3(0,0,waypoint.position.z - transform.position.z);
+        Vector3 direction = deltaVector.normalized;
+        transform.position += direction * speed * Time.deltaTime;
     }
-
-    public void Movement(Vector3 dir){
-        transform.Translate(speed * dir * Time.deltaTime);
-    }
-
-
 
     public void BobMovement(Transform train){
         timer += Time.deltaTime * bobMovementSpeed;
@@ -118,6 +133,13 @@ public class Subte : MonoBehaviour
             CloseDoors(LDoors);
             canMove = true;
             fistStation = true;
-        }   
+        }
+    }
+
+    private void OnTriggerExit(Collider other) {
+        if(other.tag == "Player" && secondStation){
+            Debug.Log("Salió");
+            playerHasCrossed = false;
+        }
     }
 }

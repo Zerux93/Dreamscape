@@ -94,7 +94,6 @@ GameObject:
   - component: {fileID: 3938401049891124944}
   - component: {fileID: 3938401049891124945}
   - component: {fileID: 3938401049891124950}
-  - component: {fileID: 3938401049891124948}
   - component: {fileID: 3938401049891124954}
   - component: {fileID: 149430984}
   - component: {fileID: 149430986}
@@ -170,25 +169,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &3938401049891124948
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3938401049891124952}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c9ffd43e23c0a04cb89fdbb089d7237, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 3
-  lookSpeedX: 2
-  lookSpeedY: 2
-  upperLookLimit: 80
-  lowerLookLimit: 80
-  gravity: 30
-  playerCamera: {fileID: 3938401048818664373}
 --- !u!143 &3938401049891124954
 CharacterController:
   m_ObjectHideFlags: 0
@@ -289,4 +269,4 @@ MonoBehaviour:
   footstepAudioSource: {fileID: 0}
   woodClip: []
   metalClip: []
-  grassClip: []
+  tileClip: []
