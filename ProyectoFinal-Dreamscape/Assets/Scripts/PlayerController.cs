@@ -43,22 +43,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField, Range(1,180)] private float upperLookLimit = 80.0f;
     [SerializeField, Range(1,180)] private float lowerLookLimit = 80.0f;
 
-
-    /*[Header("health Parameters")]
-    [SerializeField] private float maxHealth = 100f;
-    [SerializeField] private float timeBeforeRegenStart = 3f;
-    [SerializeField] private float healthValueIncrement = 1f;
-    [SerializeField] private float healthTimeIncrement = 0.1f;
-    private float currentHeatlh;
-    private Coroutine regeneratingHealth;*/
-
-
-
-
     [Header("Jumping Parameters")]
     [SerializeField] private float jumpForce = 8.0f;
     [SerializeField] private float gravity = 30.0f;
-
 
     [Header("Crouch Parameters")]    
     [SerializeField] private float crouchHeight = 0.5f;
@@ -67,8 +54,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Vector3 crouchingCenter = new Vector3(0,0.5f,0);
     [SerializeField] private Vector3 standingCenter = new Vector3(0,0,0);
     private bool isCrouching;
-    private bool duringCrouchAnimation;
-    
+    private bool duringCrouchAnimation;    
 
     [Header("Headbob Parameters")]
     [SerializeField] private float walkBobSpeed = 14f;
@@ -80,13 +66,11 @@ public class PlayerController : MonoBehaviour
     private float defaultYPos = 0;
     private float timer;
 
-
     [Header("Zoom Parameters")]
     [SerializeField] private float timeToZoom = 0.3f;
     [SerializeField] private float zoomFOV = 30f;
     private float defaultFOV;
     private Coroutine zoomRoutine;
-
 
     [Header("Footsteps Parameters")]
     [SerializeField] private float baseStepSpeed = 0.5f;
@@ -107,14 +91,12 @@ public class PlayerController : MonoBehaviour
     private bool isSliding{
         get{
             //Debug.DrawRay(transform.position, Vector3.down, Color.red);
-            if(characterController.isGrounded && Physics.Raycast(
-                    transform.position, Vector3.down, out RaycastHit slopeHit, 2f)){
-                        hitPointNormal = slopeHit.normal;
-                        return Vector3.Angle(hitPointNormal, Vector3.up) >
-                            characterController.slopeLimit;
-                }else{
-                    return false;
-                }
+            if(characterController.isGrounded && Physics.Raycast(transform.position, Vector3.down, out RaycastHit slopeHit, 4f)){
+                hitPointNormal = slopeHit.normal;
+                return Vector3.Angle(hitPointNormal, Vector3.up) > characterController.slopeLimit;
+            }else{
+                return false;
+            }
         }
     }
 
@@ -123,9 +105,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float interactionDistance = default;
     [SerializeField] private LayerMask interactionLayer = default;
     private Interactable currentInteractable;*/
-
-
-
 
     private Camera playerCamera;
     private CharacterController characterController;
@@ -273,19 +252,24 @@ public class PlayerController : MonoBehaviour
         footStepTimer -= Time.deltaTime;
 
         if(footStepTimer <= 0){
-            if(Physics.Raycast(playerCamera.transform.position, Vector3.down, out RaycastHit hit, 3)){
+            if(Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 5)){
+                //Debug.DrawRay(transform.position, Vector3.down, Color.red);
                 switch(hit.collider.tag){
                     case "Footsteps/WOOD":
                         footstepAudioSource.PlayOneShot(woodClip[Random.Range(0, woodClip.Length-1)]);
+                        Debug.Log("WOOD");
                         break;
                     case "Footsteps/METAL":
                         footstepAudioSource.PlayOneShot(metalClip[Random.Range(0, metalClip.Length-1)]);
+                        Debug.Log("METAL");
                         break;
                     case "Footsteps/TILE":
                         footstepAudioSource.PlayOneShot(tileClip[Random.Range(0, tileClip.Length-1)]);
+                        Debug.Log("TILE");
                         break;
                     default:
                         footstepAudioSource.PlayOneShot(tileClip[Random.Range(0, tileClip.Length-1)]);
+                        Debug.Log("DEFAULT");
                         break;
                 }
             }
