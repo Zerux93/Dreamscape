@@ -91,14 +91,12 @@ public class PlayerController : MonoBehaviour
     private bool isSliding{
         get{
             //Debug.DrawRay(transform.position, Vector3.down, Color.red);
-            if(characterController.isGrounded && Physics.Raycast(
-                    transform.position, Vector3.down, out RaycastHit slopeHit, 2f)){
-                        hitPointNormal = slopeHit.normal;
-                        return Vector3.Angle(hitPointNormal, Vector3.up) >
-                            characterController.slopeLimit;
-                }else{
-                    return false;
-                }
+            if(characterController.isGrounded && Physics.Raycast(transform.position, Vector3.down, out RaycastHit slopeHit, 4f)){
+                hitPointNormal = slopeHit.normal;
+                return Vector3.Angle(hitPointNormal, Vector3.up) > characterController.slopeLimit;
+            }else{
+                return false;
+            }
         }
     }
 
@@ -254,19 +252,24 @@ public class PlayerController : MonoBehaviour
         footStepTimer -= Time.deltaTime;
 
         if(footStepTimer <= 0){
-            if(Physics.Raycast(playerCamera.transform.position, Vector3.down, out RaycastHit hit, 3)){
+            if(Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 5)){
+                //Debug.DrawRay(transform.position, Vector3.down, Color.red);
                 switch(hit.collider.tag){
                     case "Footsteps/WOOD":
                         footstepAudioSource.PlayOneShot(woodClip[Random.Range(0, woodClip.Length-1)]);
+                        Debug.Log("WOOD");
                         break;
                     case "Footsteps/METAL":
                         footstepAudioSource.PlayOneShot(metalClip[Random.Range(0, metalClip.Length-1)]);
+                        Debug.Log("METAL");
                         break;
                     case "Footsteps/TILE":
                         footstepAudioSource.PlayOneShot(tileClip[Random.Range(0, tileClip.Length-1)]);
+                        Debug.Log("TILE");
                         break;
                     default:
                         footstepAudioSource.PlayOneShot(tileClip[Random.Range(0, tileClip.Length-1)]);
+                        Debug.Log("DEFAULT");
                         break;
                 }
             }
