@@ -43,22 +43,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField, Range(1,180)] private float upperLookLimit = 80.0f;
     [SerializeField, Range(1,180)] private float lowerLookLimit = 80.0f;
 
-
-    /*[Header("health Parameters")]
-    [SerializeField] private float maxHealth = 100f;
-    [SerializeField] private float timeBeforeRegenStart = 3f;
-    [SerializeField] private float healthValueIncrement = 1f;
-    [SerializeField] private float healthTimeIncrement = 0.1f;
-    private float currentHeatlh;
-    private Coroutine regeneratingHealth;*/
-
-
-
-
     [Header("Jumping Parameters")]
     [SerializeField] private float jumpForce = 8.0f;
     [SerializeField] private float gravity = 30.0f;
-
 
     [Header("Crouch Parameters")]    
     [SerializeField] private float crouchHeight = 0.5f;
@@ -67,8 +54,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Vector3 crouchingCenter = new Vector3(0,0.5f,0);
     [SerializeField] private Vector3 standingCenter = new Vector3(0,0,0);
     private bool isCrouching;
-    private bool duringCrouchAnimation;
-    
+    private bool duringCrouchAnimation;    
 
     [Header("Headbob Parameters")]
     [SerializeField] private float walkBobSpeed = 14f;
@@ -80,13 +66,11 @@ public class PlayerController : MonoBehaviour
     private float defaultYPos = 0;
     private float timer;
 
-
     [Header("Zoom Parameters")]
     [SerializeField] private float timeToZoom = 0.3f;
     [SerializeField] private float zoomFOV = 30f;
     private float defaultFOV;
     private Coroutine zoomRoutine;
-
 
     [Header("Footsteps Parameters")]
     [SerializeField] private float baseStepSpeed = 0.5f;
@@ -123,9 +107,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float interactionDistance = default;
     [SerializeField] private LayerMask interactionLayer = default;
     private Interactable currentInteractable;*/
-
-
-
 
     private Camera playerCamera;
     private CharacterController characterController;
