@@ -269,7 +269,7 @@ public class PlayerController : MonoBehaviour
                         break;
                     default:
                         footstepAudioSource.PlayOneShot(tileClip[Random.Range(0, tileClip.Length-1)]);
-                        Debug.Log("DEFAULT");
+                        //Debug.Log("DEFAULT");
                         break;
                 }
             }
