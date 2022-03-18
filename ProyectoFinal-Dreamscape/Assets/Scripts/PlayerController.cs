@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool canUseHeadbob = true;
     [SerializeField] private bool willSlideOnSlopes = true;
     [SerializeField] private bool canZoom = true;
-    //[SerializeField] private bool canInteract = true;
+    [SerializeField] private bool canInteract = true;
     [SerializeField] private bool useFootsteps = true;
 
 
@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private KeyCode jumpKey = KeyCode.Space;
     [SerializeField] private KeyCode crouchKey = KeyCode.LeftControl;
     [SerializeField] private KeyCode zoomKey = KeyCode.Mouse1;
-    //[SerializeField] private KeyCode interactionKey = KeyCode.Mouse0;
+    [SerializeField] private KeyCode interactionKey = KeyCode.Mouse0;
 
 
     [Header("Movement Parameters")]
@@ -100,11 +100,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    /*[Header("Interactions")]
+    [Header("Interactions")]
     [SerializeField] private Vector3 interactionRayPoint = default;
     [SerializeField] private float interactionDistance = default;
     [SerializeField] private LayerMask interactionLayer = default;
-    private Interactable currentInteractable;*/
+    private Interactable currentInteractable;
 
     private Camera playerCamera;
     private CharacterController characterController;
@@ -114,9 +114,13 @@ public class PlayerController : MonoBehaviour
 
     private float rotationX = 0;
 
+    public static PlayerController instance;
+
     // Start is called before the first frame update
     void Awake()
     {
+        instance = this;
+        
         playerCamera = GetComponentInChildren<Camera>();
         characterController = GetComponent<CharacterController>();
         defaultYPos = playerCamera.transform.localPosition.y;
@@ -144,10 +148,10 @@ public class PlayerController : MonoBehaviour
             if(canZoom)
                 HandleZoom();
 
-            /*if(canInteract){
+            if(canInteract){
                 HandleIntectationCheck();
                 HandleInteractionInput();
-            }*/
+            }
 
             if(useFootsteps)
                 HandleFootsteps();
@@ -217,7 +221,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    /*private void HandleIntectationCheck(){
+    private void HandleIntectationCheck(){
         if(Physics.Raycast(playerCamera.ViewportPointToRay(interactionRayPoint),
             out RaycastHit hit, interactionDistance))
         {
@@ -234,16 +238,16 @@ public class PlayerController : MonoBehaviour
             currentInteractable.OnLoseFocus();
             currentInteractable = null;
         }
-    }*/
+    }
 
-    /*private void HandleInteractionInput(){
+    private void HandleInteractionInput(){
         if(Input.GetKeyDown(interactionKey) && currentInteractable != null
             && Physics.Raycast(playerCamera.ViewportPointToRay(interactionRayPoint),
             out RaycastHit hit, interactionDistance, interactionLayer))
         {
             currentInteractable.OnInteract();
         }
-    }*/
+    }
 
     private void HandleFootsteps(){
         if(!characterController.isGrounded) return;
