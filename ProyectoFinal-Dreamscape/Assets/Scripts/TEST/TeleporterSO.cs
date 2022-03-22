@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Teleport : MonoBehaviour
+public class TeleporterSO : ScriptableObject
 {
     public Transform player;
     public Transform teleportSpot;
@@ -12,4 +12,5 @@ public class Teleport : MonoBehaviour
             player.position = teleportSpot.position;
         }
     }
+
 }
