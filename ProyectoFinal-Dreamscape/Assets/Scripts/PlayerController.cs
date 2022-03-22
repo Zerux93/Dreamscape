@@ -9,8 +9,10 @@ public class PlayerController : MonoBehaviour
     private bool IsSprinting => canSprint && Input.GetKey(sprintKey);
     private bool ShouldJump => Input.GetKeyDown(jumpKey) && characterController.isGrounded;
     private bool ShouldCrouch => Input.GetKeyDown(crouchKey) && !duringCrouchAnimation && characterController.isGrounded;
+    private bool isSwimming = false;
 
     [Header("Functional Options")]
+    [SerializeField] private bool canWalk = true;
     [SerializeField] private bool canSprint = true;
     [SerializeField] private bool canJump = true;
     [SerializeField] private bool canCrouch = true;
@@ -19,6 +21,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool canZoom = true;
     [SerializeField] private bool canInteract = true;
     [SerializeField] private bool useFootsteps = true;
+    [SerializeField] private bool canSwim = false;
 
 
 
@@ -35,6 +38,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float sprintSpeed = 6.0f;  
     [SerializeField] private float crouchSpeed = 1.5f;  
     [SerializeField] private float slopeSpeed = 8f;  
+    [SerializeField] private float swimmingSpeed = 5f;
 
 
     [Header("Look Parameters")]
@@ -46,6 +50,7 @@ public class PlayerController : MonoBehaviour
     [Header("Jumping Parameters")]
     [SerializeField] private float jumpForce = 8.0f;
     [SerializeField] private float gravity = 30.0f;
+    [SerializeField] private float swimGravity = 5f;
 
     [Header("Crouch Parameters")]    
     [SerializeField] private float crouchHeight = 0.5f;
@@ -132,7 +137,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (CanMove){
+        if (CanMove && canWalk){
             HandleMovementInput();
             HandleMouseLook();
 
@@ -159,13 +164,19 @@ public class PlayerController : MonoBehaviour
 
             ApplyFinalMovements();
         }
+
+        if(canSwim){
+            HandleMovementInput();
+            HandleMouseLook();
+            HandleSwimmingMovements();
+        }
         
     }
 
     //Keyword controll
     private void HandleMovementInput(){
-        currentInput = new Vector2((isCrouching ? crouchSpeed : IsSprinting ? sprintSpeed : walkSpeed) * Input.GetAxis("Vertical"),
-                                   (isCrouching ? crouchSpeed : IsSprinting ? sprintSpeed : walkSpeed) * Input.GetAxis("Horizontal"));
+        currentInput = new Vector2((isCrouching ? crouchSpeed : IsSprinting ? sprintSpeed : isSwimming ? swimmingSpeed : walkSpeed) * Input.GetAxis("Vertical"),
+                                   (isCrouching ? crouchSpeed : IsSprinting ? sprintSpeed : isSwimming ? swimmingSpeed : walkSpeed) * Input.GetAxis("Horizontal"));
 
         float moveDirectionY = moveDirection.y;
         moveDirection = (transform.TransformDirection(Vector3.forward)*currentInput.x)
@@ -296,6 +307,27 @@ public class PlayerController : MonoBehaviour
 
         characterController.Move(moveDirection * Time.deltaTime);
     }
+
+    private void HandleSwimmingMovements(){
+
+        isSwimming = true;
+
+        if (characterController.velocity.y < -1)
+        moveDirection.y = 0;
+
+        if(!characterController.isGrounded){
+            moveDirection.y -= swimGravity * Time.deltaTime;
+        }
+
+        characterController.Move(moveDirection * Time.deltaTime);
+
+        if(Input.GetKeyDown(jumpKey))
+            moveDirection.y = jumpForce;
+
+        //if(Input.GetKeyDown(sprintKey))
+
+    }
+
 
     private IEnumerator CrouchStand(){
 
