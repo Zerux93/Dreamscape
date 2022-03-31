@@ -34,8 +34,8 @@ public class PlayerController : MonoBehaviour
 
 
     [Header("Movement Parameters")]
-    [SerializeField] private float walkSpeed = 3.0f;
-    [SerializeField] private float sprintSpeed = 6.0f;  
+    [SerializeField] public float walkSpeed = 3.0f;
+    [SerializeField] public float sprintSpeed = 6.0f;  
     [SerializeField] private float crouchSpeed = 1.5f;  
     [SerializeField] private float slopeSpeed = 8f;  
     [SerializeField] private float swimmingSpeed = 5f;
@@ -48,8 +48,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField, Range(1,180)] private float lowerLookLimit = 80.0f;
 
     [Header("Jumping Parameters")]
-    [SerializeField] private float jumpForce = 8.0f;
-    [SerializeField] private float gravity = 30.0f;
+    [SerializeField] public float jumpForce = 8.0f;
+    [SerializeField] public float gravity = 30.0f;
     [SerializeField] private float swimGravity = 5f;
 
     [Header("Crouch Parameters")]    
@@ -114,7 +114,7 @@ public class PlayerController : MonoBehaviour
     private Camera playerCamera;
     private CharacterController characterController;
 
-    private Vector3 moveDirection;
+    public Vector3 moveDirection;
     private Vector2 currentInput;
 
     private float rotationX = 0;
