@@ -1,14 +1,9 @@
 fileFormatVersion: 2
-guid: 6df6d1018544e4e45b2020bf92be5341
+guid: cb6898fc71d465a41ad45f2f017b8b13
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Caverna
-    second: {fileID: 2100000, guid: 68a1b0ffb7762ce4da2656da5b8b13fd, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0

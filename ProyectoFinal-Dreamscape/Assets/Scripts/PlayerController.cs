@@ -12,8 +12,8 @@ public class PlayerController : MonoBehaviour
     private bool isSwimming = false;
 
     [Header("Functional Options")]
-    [SerializeField] private bool canWalk = true;
-    [SerializeField] private bool canSprint = true;
+    [SerializeField] public bool canWalk = true;
+    [SerializeField] public bool canSprint = true;
     [SerializeField] private bool canJump = true;
     [SerializeField] private bool canCrouch = true;
     [SerializeField] private bool canUseHeadbob = true;
@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool canZoom = true;
     [SerializeField] private bool canInteract = true;
     [SerializeField] private bool useFootsteps = true;
-    [SerializeField] private bool canSwim = false;
+    [SerializeField] public bool canSwim = false;
 
 
 
@@ -170,6 +170,8 @@ public class PlayerController : MonoBehaviour
             HandleMouseLook();
             HandleSwimmingMovements();
         }
+
+        //Debug.Log(moveDirection.z);
         
     }
 

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c2a8859a7eb8a8742bdd113008b36242
+guid: 210084ef32236e54ba5c35f63b05cafe
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
@@ -7,8 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Liquido
-    second: {fileID: 2100000, guid: 1fcabd526aa36094b9dcd6d86152286c, type: 2}
+      name: Luz1
+    second: {fileID: 2100000, guid: f7c3825752eaba143b418cfde06d77e8, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
