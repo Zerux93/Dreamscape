@@ -19,10 +19,10 @@ public class MatrazVolume : MonoBehaviour
     bool playerInside = false;
 
     private float timer;
-    private float timePass = 0;
-    private float coolDown = 3f;
-    private float coolDown2 = 5f; 
     private float bobCount;
+
+    private float timePass = 0;
+    [SerializeField] private float coolDown = 0.2f;
     
 
 
@@ -37,8 +37,14 @@ public class MatrazVolume : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(playerInside)
+        if(playerInside){
             WaveMovement();
+            timePass += Time.deltaTime;
+            if(timePass > coolDown){
+                playerController.canWalk = false;
+                playerController.canSwim = true;
+            }
+        }
     }
 
     public void WaveMovement(){
@@ -54,10 +60,16 @@ public class MatrazVolume : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) {
         if(other.tag == "Player"){
-            playerController.canWalk = false;
-            playerController.canSwim = true;
-
             playerInside = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other) {
+        if(other.tag == "Player"){
+            playerController.canWalk = true;
+            playerController.canSwim = false;
+
+            playerInside = false;
         }
     }
 

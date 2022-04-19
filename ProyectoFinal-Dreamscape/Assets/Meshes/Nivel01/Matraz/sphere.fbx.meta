@@ -7,8 +7,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Luz1
-    second: {fileID: 2100000, guid: 6a14c1cbb2c00384b9d267d2e2359949, type: 2}
+      name: WhiteChamber
+    second: {fileID: 2100000, guid: c4f0034f405235845aa7a9a1832fac8b, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
