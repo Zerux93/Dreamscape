@@ -137,9 +137,19 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        HandleMouseLook();
+
+        if(canZoom)
+            HandleZoom();
+
+        if(canInteract){
+            HandleIntectationCheck();
+            HandleInteractionInput(); 
+        }  
+
         if (CanMove && canWalk){
-            HandleMovementInput();
-            HandleMouseLook();
+
+            HandleMovementInput();         
 
             if(canJump)
                 HandleJump();
@@ -149,14 +159,6 @@ public class PlayerController : MonoBehaviour
 
             if(canUseHeadbob)
                 HandleHeadBob();
-
-            if(canZoom)
-                HandleZoom();
-
-            if(canInteract){
-                HandleIntectationCheck();
-                HandleInteractionInput();
-            }
 
             if(useFootsteps)
                 HandleFootsteps();

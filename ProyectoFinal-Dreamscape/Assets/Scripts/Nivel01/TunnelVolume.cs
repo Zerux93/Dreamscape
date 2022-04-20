@@ -57,7 +57,7 @@ public class TunnelVolume : MonoBehaviour
 
             //Debug.Log(smoothStepPosition);
 
-            playerController.walkSpeed = 3+(3 * (10*smoothStepPosition));
+            playerController.walkSpeed = 3+(3 * (20*smoothStepPosition));
 
             playerController.canSprint = false;
         }
