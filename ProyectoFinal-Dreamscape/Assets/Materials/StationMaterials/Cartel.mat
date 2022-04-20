@@ -23,7 +23,7 @@ Material:
   m_Name: Cartel
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   m_ShaderKeywords: _EMISSION
-  m_LightmapFlags: 1
+  m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: 2000
@@ -121,6 +121,6 @@ Material:
     m_Colors:
     - _BaseColor: {r: 0.9063317, g: 0.7483186, b: 0.64129966, a: 1}
     - _Color: {r: 0.9063317, g: 0.7483186, b: 0.6412997, a: 1}
-    - _EmissionColor: {r: 0.013463129, g: 0.021977497, b: 0.0142375715, a: 1}
+    - _EmissionColor: {r: 0.71342117, g: 0.9056604, b: 0.7775009, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
